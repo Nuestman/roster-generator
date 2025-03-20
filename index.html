@@ -4,36 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Duty Roster Generator</title>
-    <link rel="stylesheet" href="roster_gen_style.css">
+    <link rel="stylesheet" href="roster_gen_style-V1.css">
 </head>
 <body>
 
-    <h1>Duty Roster Generator</h1>
+    <header class="">
+        <div class="container">
+            <div class="header_inner flex justify-between align-center p-2">
+                <div class="logo_container flex align-center">
+                    <a href="#"><img src="logo.png" alt="Logo" class="logo"></a>
+                </div>
+                <nav class="pri-nav flex align-center">
+                    <ul class="pri-nav_inner flex">
+                        <li class="nav-item">
+                            <a href="roster_generator-with-options_and-more-cols.html" class="nav-link">Ver_0.0</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">More Tools</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Contact Us</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-    <form id="rosterForm">
-        <label for="numDays">Number of Days:</label>
-        <input type="number" id="numDays" name="numDays" min="1" required>
+    <main class="m-2">
+        
+        <h1 class="text-center text-bold uppercase">Duty Roster Generator</h1>
+        <form id="rosterForm" class="flex flex-column p-1">
+            <div class="input-container">
+                <label for="numDays">How many days is the roster for?</label>
+                <input type="number" id="numDays" name="numDays" min="1" required autocomplete="on" placeholder="e.g., 28">
+                <span class="validity"></span>
+            </div>
+            
+            <div class="input-container">
+                <label for="numStaff">How many Staff Members do you have for the roster?</label>
+                <input type="number" id="numStaff" name="numStaff" min="1" required autocomplete="on" placeholder="e.g., 10">
+                <span class="validity"></span>
+            </div>
+            
+            <!-- Repeat for other inputs as needed -->
+            
 
-        <label for="numStaff">Number of Staff Members:</label>
-        <input type="number" id="numStaff" name="numStaff" min="1" required>
+            <label for="dutyCycleOption">Duty Cycle Option:</label>
+            <select id="dutyCycleOption" name="dutyCycleOption" required autocomplete="on">
+                <option value="preset">Preset Duty Cycle</option>
+                <option value="custom">Custom Duty Cycle</option>
+            </select>
 
-        <label for="dutyCycle">Duty Cycle:</label>
-        <select id="dutyCycle" name="dutyCycle" required>
-            <option value="DR, DY, NR, NY, OFF, OFF, OFF">4 Days On (2 Day Shifts, 2 Night Shifts), 3 Days Off</option>
-            <!-- Add more cycles as needed -->
-        </select>
+            <div id="dutyCyclePreset" class="flex flex-column">
+                <label for="dutyCycle">Preset Duty Cycle:</label>
+                <select id="dutyCycle" name="dutyCycle">
+                    <option value="DR, DY, NR, NY, OFF, OFF, OFF">4 Days On (2 Day Shifts, 2 Night Shifts), 3 Days Off</option>
+                    <!-- Add more preset cycles as needed -->
+                </select>
+            </div>
 
-        <button type="button" id="generateRosterBtn">Generate Roster</button>
-    </form>
-    
-    <div id="rosterPlaceholder">
-        The generated roster will appear here.
-    </div>
+            <div id="dutyCycleCustom" class="flex flex-column">
+                <div class="input-container">
+                    <label for="daysOn">Number of Days On:</label>
+                    <input type="number" id="daysOn" name="daysOn" min="1" autocomplete="on" placeholder="Number of DUTY days" required>
+                    <span class="validity"></span>
+                </div>
 
-    <table id="rosterTable">
-        <!-- The generated roster will be inserted here -->
-    </table>
+                <div class="input-container">
+                    <label for="daysOff">Number of Days Off:</label>
+                    <input type="number" id="daysOff" name="daysOff" min="1" autocomplete="on" placeholder="Number of OFF days" required>
+                    <span class="validity"></span>
+                </div>
+            </div>
 
+            <button type="button" id="generateRosterBtn" class="btn btn-primary">Generate Roster</button>
+        </form>
+
+        <div id="rosterPlaceholder" class="text-center p-2">
+            The generated roster will appear here.
+        </div>
+
+        <table id="rosterTable" class="w-full">
+            <!-- The generated roster will be inserted here -->
+        </table>
+
+        <button id="downloadBtn" class="btn btn-secondary">Download Roster</button>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script src="roster_gen_script.js"></script>
 </body>
 </html>

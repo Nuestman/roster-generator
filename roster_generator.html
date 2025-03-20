@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duty Roster Generator</title>
+    <link rel="stylesheet" href="roster_gen_style.css">
+</head>
+<body>
+
+    <h1>Duty Roster Generator</h1>
+
+    <form id="rosterForm">
+        <label for="numDays">Number of Days:</label>
+        <input type="number" id="numDays" name="numDays" min="1" required>
+
+        <label for="numStaff">Number of Staff Members:</label>
+        <input type="number" id="numStaff" name="numStaff" min="1" required>
+
+        <label for="dutyCycle">Duty Cycle:</label>
+        <select id="dutyCycle" name="dutyCycle" required>
+            <option value="DR, DY, NR, NY, OFF, OFF, OFF">4 Days On (2 Day Shifts, 2 Night Shifts), 3 Days Off</option>
+            <!-- Add more cycles as needed -->
+        </select>
+
+        <button type="button" id="generateRosterBtn">Generate Roster</button>
+    </form>
+    
+    <div id="rosterPlaceholder">
+        The generated roster will appear here.
+    </div>
+
+    <table id="rosterTable">
+        <!-- The generated roster will be inserted here -->
+    </table>
+
+    <script src="roster_gen_script.js"></script>
+</body>
+</html>
