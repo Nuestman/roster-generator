@@ -1,0 +1,113 @@
+/* Roster Generator 2 with Presets and Customs Inputs */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+form {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+input, select {
+    margin-bottom: 20px;
+    padding: 8px;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#dutyCycleCustom {
+    display: none;
+}
+#rosterPlaceholder {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px dashed #bbb;
+    text-align: center;
+    color: #777;
+    font-style: italic;
+}
+#rosterTable {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+    display: none; /* Initially hidden until the roster is generated */
+}
+#rosterTable th, #rosterTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+#rosterTable th {
+    background-color: #f4f4f4;
+}
+#downloadBtn {
+    display: none; /* Initially hidden until the roster is generated */
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+input:valid + span::after {
+    content: "✅";
+    padding: 8px;
+}
+input:invalid + span::after {
+    content: "❌";
+    padding: 8px;
+}
+
+
+
+/* Roster Generator 1 with only presets */
+/* 
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+form {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+input, select {
+    margin-bottom: 20px;
+    padding: 8px;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#rosterTable {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+}
+#rosterTable th, #rosterTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+#rosterTable th {
+    background-color: #f4f4f4;
+}
+#rosterPlaceholder {
+    background-color: #f4f4f4;
+    height: 400px;
+    text-align: center;
+    font-size: 56px;
+} */

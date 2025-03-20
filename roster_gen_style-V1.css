@@ -1,0 +1,325 @@
+/* Modern CSS Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
+    -webkit-font-smoothing: antialiased; /* Improves text rendering in WebKit browsers */
+    -moz-osx-font-smoothing: grayscale; /* Improves text rendering on MacOS */
+    text-rendering: optimizeLegibility;
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+/* Flexbox utilities */
+.flex {
+    display: flex;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+/* Spacing utilities */
+.m-0 { margin: 0 !important; }
+.m-1 { margin: 0.5rem !important; }
+.m-2 { margin: 1rem !important; }
+
+.p-0 { padding: 0 !important; }
+.p-1 { padding: 0.5rem !important; }
+.p-2 { padding: 1rem !important; }
+
+/* Width utilities */
+.w-full { width: 100%; }
+.w-auto { width: auto; }
+
+/* Text utilities */
+.text-center {
+    text-align: center;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.uppercase {
+    text-transform: uppercase;
+    
+}
+
+/* Button utilities */
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+/* Header and Navigation */
+.header_inner {
+    flex-wrap: wrap;
+}
+.logo_container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    max-height: 72px;
+    margin-right: 1rem;
+}
+
+.pri-nav {
+    display: flex;
+    align-items: center;
+}
+
+.pri-nav_inner {
+    display: flex;
+}
+
+.nav-item {
+    margin-left: 1rem;
+}
+
+.nav-link {
+    color: #28a745;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.nav-link:hover {
+    color: #218838;
+}
+
+
+/* Responsive and Accessible Styles */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+    max-width: 500px;
+    margin-inline: auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input, select, button {
+    margin-bottom: 20px;
+    padding: 8px;
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#dutyCycleCustom {
+    display: none;
+}
+
+/* Container for input and validation icon */
+.input-container {
+    position: relative;
+}
+
+/* Position the validation icon */
+.input-container .validity::after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-40%);
+    font-size: 1.2rem;
+}
+
+
+#rosterPlaceholder {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px dashed #bbb;
+    text-align: center;
+    color: #777;
+    font-style: italic;
+}
+
+#rosterTable {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+    display: none; /* Initially hidden until the roster is generated */
+}
+
+#rosterTable th,
+#rosterTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#rosterTable th {
+    background-color: #f4f4f4;
+}
+
+#downloadBtn {
+    display: none; /* Initially hidden until the roster is generated */
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    max-width: fit-content;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+#downloadBtn:hover {
+    background-color: #218838;
+}
+
+input:valid + span::after {
+    content: "✅";
+    padding: 8px;
+}
+input:invalid + span::after {
+    content: "❌";
+    padding: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    body {
+        margin: 10px;
+    }
+
+    /* Header and Navigation */
+    .header_inner {
+        flex-wrap: wrap;
+    }
+    .logo {
+        margin-bottom: 10px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+        line-height: 1.1em;
+    }
+    
+    input, select, button {
+        font-size: 0.9rem;
+        padding: 7px;
+    }
+    /* Position the validation icon */
+    .input-container .validity::after {
+        display: none;
+    }
+    
+    button {
+        padding: 8px 15px;
+    }
+    
+    #rosterPlaceholder, #rosterTable th, #rosterTable td {
+        font-size: 0.8rem;
+    }
+    
+    #downloadBtn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 375px) {
+    /* Header and Navigation */
+    .header_inner {
+        justify-content: center;
+    }
+    .logo {
+        margin-right: 0;
+    }
+}

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duty Roster Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input, select {
+            margin-bottom: 20px;
+            padding: 8px;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #dutyCycleCustom {
+            display: none;
+        }
+        #rosterPlaceholder {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px dashed #bbb;
+            text-align: center;
+            color: #777;
+            font-style: italic;
+        }
+        #rosterTable {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+            display: none; /* Initially hidden until the roster is generated */
+        }
+        #rosterTable th, #rosterTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        #rosterTable th {
+            background-color: #f4f4f4;
+        }
+        #downloadBtn {
+            display: none; /* Initially hidden until the roster is generated */
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        input:valid + span::after {
+            content: "✅";
+            padding: 8px;
+        }
+        input:invalid + span::after {
+            content: "❌";
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Duty Roster Generator</h1>
+
+    <form id="rosterForm">
+        <label for="numDays">How many days is the roster for?</label>
+        <input type="number" id="numDays" name="numDays" min="1" required autocomplete="on" placeholder="eg., 28"><span class="validity"></span>
+
+        <label for="numStaff">How many Staff Members do you have for the roster?</label>
+        <input type="number" id="numStaff" name="numStaff" min="1" required autocomplete="on" placeholder="How many staffs is roster for?"><span class="validity"></span>
+
+        <label for="dutyCycleOption">Duty Cycle Option:</label>
+        <select id="dutyCycleOption" name="dutyCycleOption" required autocomplete="on">
+            <option value="preset">Preset Duty Cycle</option>
+            <option value="custom">Custom Duty Cycle</option>
+        </select>
+
+        <div id="dutyCyclePreset">
+            <label for="dutyCycle">Preset Duty Cycle:</label>
+            <select id="dutyCycle" name="dutyCycle">
+                <option value="DR, DY, NR, NY, OFF, OFF, OFF">4 Days On (2 Day Shifts, 2 Night Shifts), 3 Days Off</option>
+                <!-- Add more preset cycles as needed -->
+            </select>
+        </div>
+
+        <div id="dutyCycleCustom">
+            <label for="daysOn">Number of Days On:</label>
+            <input type="number" id="daysOn" name="daysOn" min="1" autocomplete="on" placeholder="Number of DUTY days" required><span class="validity"></span>
+
+            <label for="daysOff">Number of Days Off:</label>
+            <input type="number" id="daysOff" name="daysOff" min="1" autocomplete="on" placeholder="Number of OFF days" required><span class="validity"></span>
+        </div>
+
+        <button type="button" id="generateRosterBtn">Generate Roster</button>
+    </form>
+
+    <div id="rosterPlaceholder">
+        The generated roster will appear here.
+    </div>
+
+    <table id="rosterTable">
+        <!-- The generated roster will be inserted here -->
+    </table>
+
+    <button id="downloadBtn">Download Roster</button>
+
+    <script>
+        document.getElementById('dutyCycleOption').addEventListener('change', function () {
+            const dutyCyclePreset = document.getElementById('dutyCyclePreset');
+            const dutyCycleCustom = document.getElementById('dutyCycleCustom');
+            if (this.value === 'custom') {
+                dutyCyclePreset.style.display = 'none';
+                dutyCycleCustom.style.display = 'block';
+            } else {
+                dutyCyclePreset.style.display = 'block';
+                dutyCycleCustom.style.display = 'none';
+            }
+        });
+
+        document.getElementById('generateRosterBtn').addEventListener('click', function () {
+            const numDays = parseInt(document.getElementById('numDays').value);
+            const numStaff = parseInt(document.getElementById('numStaff').value);
+            const dutyCycleOption = document.getElementById('dutyCycleOption').value;
+
+            let dutyCycle;
+            if (dutyCycleOption === 'preset') {
+                dutyCycle = document.getElementById('dutyCycle').value.split(', ');
+            } else {
+                const daysOn = parseInt(document.getElementById('daysOn').value);
+                const daysOff = parseInt(document.getElementById('daysOff').value);
+                dutyCycle = [];
+                for (let i = 0; i < daysOn; i++) {
+                    dutyCycle.push(i < 2 ? 'DY' : 'NY');
+                }
+                for (let i = 0; i < daysOff; i++) {
+                    dutyCycle.push('OFF');
+                }
+            }
+
+            const rosterTable = document.getElementById('rosterTable');
+            rosterTable.innerHTML = '';
+
+            const headerRow = rosterTable.insertRow(0);
+            const headerCell = headerRow.insertCell(0);
+            headerCell.innerText = 'Staff/Day';
+            for (let day = 1; day <= numDays; day++) {
+                const cell = headerRow.insertCell(day);
+                cell.innerText = `Day ${day}`;
+            }
+
+            for (let staffIndex = 0; staffIndex < numStaff; staffIndex++) {
+                const row = rosterTable.insertRow(staffIndex + 1);
+                const cell = row.insertCell(0);
+                cell.innerText = `Staff ${staffIndex + 1}`;
+
+                const cycleStart = staffIndex % dutyCycle.length;
+                for (let day = 0; day < numDays; day++) {
+                    const duty = dutyCycle[(day + cycleStart) % dutyCycle.length];
+                    const dutyCell = row.insertCell(day + 1);
+                    dutyCell.innerText = duty;
+                }
+            }
+
+            document.getElementById('rosterPlaceholder').style.display = 'none';
+            rosterTable.style.display = 'table';
+            document.getElementById('downloadBtn').style.display = 'inline-block';
+        });
+
+        document.getElementById('downloadBtn').addEventListener('click', function () {
+            const rosterTable = document.getElementById('rosterTable');
+            const wb = XLSX.utils.table_to_book(rosterTable, {sheet: "Roster"});
+            XLSX.writeFile(wb, "Duty_Roster.xlsx");
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+</body>
+</html>
